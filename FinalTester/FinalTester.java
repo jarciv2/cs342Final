@@ -100,7 +100,7 @@ public class FinalTester {
 
         String accumulator = "";
         for (int i = 0; i < options.getPrecision(); ++i) {
-        accumulator = accumulator.concat("#");
+           accumulator = accumulator.concat("#");
         }
         String pattern = "#." + accumulator;
         DecimalFormat df = new DecimalFormat(pattern);
@@ -109,16 +109,15 @@ public class FinalTester {
         String s3 = s2.replaceAll(",", "+");
         String s4 = s3.replace(".", options.getDecimalPoint());
         String retVal = s4.replaceAll("\\+", options.getSeparator());
-        String acc = "";
-        debugPrint(retVal);
-        if (!retVal.contains(".") && options.getPrecision() > 0) {
-            acc = ".";
-            for (int i = 0; i < options.getPrecision(); i++) {
-                acc = acc.concat("0");
+        if ( (retVal.contains(".") == false) && (options.getPrecision() > 0) ) {
+            String acc = ".";
+            for (int i = 0; i < options.getPrecision(); ++i) {
+                acc = acc + "0";
             }
+            retVal = retVal + acc;
+            // DecimalFormat df2 = new DecimalFormat("0");
+            // df2.
         }
-        retVal = retVal + acc;
-
         return retVal;
     }
 

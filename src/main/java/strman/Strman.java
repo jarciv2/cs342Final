@@ -508,7 +508,7 @@ public abstract class Strman {
 
         String accumulator = "";
         for (int i = 0; i < options.getPrecision(); ++i) {
-        accumulator = accumulator.concat("#");
+           accumulator = accumulator.concat("#");
         }
         String pattern = "#." + accumulator;
         DecimalFormat df = new DecimalFormat(pattern);
@@ -517,7 +517,15 @@ public abstract class Strman {
         String s3 = s2.replaceAll(",", "+");
         String s4 = s3.replace(".", options.getDecimalPoint());
         String retVal = s4.replaceAll("\\+", options.getSeparator());
-
+        if ((!retVal.contains(".")) && (options.getPrecision() > 0)) {
+            String acc = ".";
+            for (int i = 0; i < options.getPrecision(); ++i) {
+                acc = acc + "0";
+            }
+            retVal = retVal + acc;
+            // DecimalFormat df2 = new DecimalFormat("0");
+            // df2.
+        }
         return retVal;
     }
 
