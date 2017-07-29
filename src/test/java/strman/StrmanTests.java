@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import CS342Final.strman.NumberFormatOptions;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -1185,5 +1186,64 @@ public class StrmanTests {
         assertThat(chop("whitespace", 2).length, equalTo(5));
         assertThat(chop("whitespace", 3).length, equalTo(4));
         assertThat(chop("whitespace", 0)[0].length(), equalTo(10));
+    }
+
+    @Test
+    public void formatNumber_noParams1() throws Exception {
+        long input = 1000;
+        String correctOutput = "1,000";
+        assertThat(formatNumber(input), equalTo(correctOutput));
+    }
+
+
+    @Test
+    public void formatNumber_noParams2() throws Exception {
+        long input = 500000;
+        String correctOutput = "500,000";
+        assertThat(formatNumber(input), equalTo(correctOutput));
+    }
+
+
+    @Test
+    public void formatNumber_noParams3() throws Exception {
+        long input = 1234567;
+        String correctOutput = "1,234,567";
+        assertThat(formatNumber(input), equalTo(correctOutput));
+    }
+
+
+    @Test
+    public void formatNumber_2spacesAfterDecimal1() throws Exception {
+        NumberFormatOptions option = new NumberFormatOptions(2);
+        double input = 1000;
+        String correctOutput = "1000.00";
+        assertThat(formatNumber(input, option), equalTo(correctOutput));
+    }
+
+
+    @Test
+    public void formatNumber_2spacesAfterDecimal2() throws Exception {
+        NumberFormatOptions option = new NumberFormatOptions(2);
+        double input = 500000;
+        String correctOutput = "500000.00";
+        assertThat(formatNumber(input, option), equalTo(correctOutput));
+    }
+
+
+    @Test
+    public void formatNumber_2spacesAfterDecimal3() throws Exception {
+        NumberFormatOptions option = new NumberFormatOptions(2);
+        double input = 123456789;
+        String correctOutput = "123456789.00";
+        assertThat(formatNumber(input, option), equalTo(correctOutput));
+    }
+    
+
+    @Test
+    public void formatNumber_() throws Exception {
+        NumberFormatOptions option = new NumberFormatOptions(0, ",", ".");
+        double input = 1000.754;
+        String correctOutput = "1.001";
+        assertThat(formatNumber(input, new NumberFormatOptions(0, ",", ".")), equalTo(correctOutput));
     }
 }

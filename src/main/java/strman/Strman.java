@@ -27,6 +27,7 @@
 package strman;
 
 import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -37,6 +38,8 @@ import java.util.stream.Stream;
 
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.*;
+
+import CS342Final.strman.NumberFormatOptions;
 
 /**
  * A String manipulation library without any dependencies
@@ -1428,5 +1431,84 @@ public abstract class Strman {
         return input == null || input.isEmpty();
     }
 
+    /**
+     * Gets the thousands seperator the number we are formatting will use
+     *
+     * @return String Our thousands seperator being used
+     */
+    public static String formatPrefix(String s) {
+        String rVal = s;
+        int length = s.length();
+
+
+        if (length > 3) {
+            for (int i = length - 3; i > 0; i -= 3) {
+                String sub1 = rVal.substring(0, i); // get digits before comma to be inserted
+                String sub2 = rVal.substring(i);             // get the rest of number
+                rVal = sub1 + "," + sub2;
+            }
+            return rVal;
+        }
+        else {
+            return s;
+        }
+    }
+
+    /**
+     * Formats numbers by adding a separator commas to a whole number
+     *
+     * @param double Our number we are formatting
+     * @return String  Our number in string form with separators added
+     */
+    public static String formatNumber(double number) {
+
+        String retVal = null;
+        String numToStr = Double.toString(number);
+        int splitIndex = numToStr.indexOf('.');
+        String end = numToStr.substring(splitIndex + 1);
+        if (!end.startsWith("0") || end.length() > 1) {
+            String pre = numToStr.substring(0, splitIndex);
+            String post = numToStr.substring(splitIndex + 1);
+            retVal = formatPrefix(pre) + "." + post;
+            return retVal;
+        } else {
+            retVal = formatPrefix(numToStr.substring(0, splitIndex));
+            return retVal;
+        }
+    }
+
+    /**
+     * Formats our number using options decided by NumberFormatOptions
+     *
+     * @param double Our number that we are formatting
+     * @param NumberFormatOptions The options we will use to format our number
+     * @return String Our thousands seperator being used
+     */
+    public static String formatNumber(double number, NumberFormatOptions options) {
+
+        String accumulator = "";
+        // round to options.precision
+        // double toRound = Double.parseDouble(formatted);// call formatNumber after as this line doesnt deal with commas
+        for (int i = 0; i < options.getPrecision(); ++i) {
+            accumulator = accumulator.concat("#");
+        }
+        String pattern = "#." + accumulator;
+        //debugPrint(accumulator);
+        DecimalFormat df = new DecimalFormat(pattern);
+        String s1 = df.format(number);
+        String s2 = formatNumber(Double.parseDouble(s1));
+        String s3 = s2.replaceAll(",", "+");
+        // issue below
+        //System.out.println(options.getSeparator());
+        if (options.getDecimalPoint() != null && options.getSeparator() != null) {
+            String s4 = s3.replaceAll("\\.", options.getDecimalPoint());
+            String s5 = s4.replaceAll("\\+", options.getSeparator());
+        }
+        //System.out.println(s4);
+
+        // formatNumber()
+        // replace ',' '.' etc.
+        return null;
+    }
 }
 
