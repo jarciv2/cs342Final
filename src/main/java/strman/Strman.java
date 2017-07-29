@@ -26,6 +26,7 @@
 
 package strman;
 
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -514,9 +515,28 @@ public abstract class Strman {
         DecimalFormat df = new DecimalFormat(pattern);
         String s1 = df.format(number);
         String s2 = formatNumber(Double.parseDouble(s1));
+        if (s1.length() > 8 && !s1.contains(".")) {
+            s2 = new BigDecimal(s2).toPlainString();
+            String[] x = s2.split("");
+            for (int i = (s1.length() - 4); i > 0; i--) {
+                x[i] = x[i] + ",";
+                if ((i - 2) > 0 && (i - 1) > 0) {
+                    i = i - 2;
+                } else {
+                      i = 1;
+                }
+            }
+            s2 = x[0];
+            for (int i = 1; i < s1.length(); i++) {
+                s2 = s2 + x[i];
+            }
+        }
         String s3 = s2.replaceAll(",", "+");
+        String retVal = s2;
+        if (options.getSeparator() != null && options.getDecimalPoint() != null) {
         String s4 = s3.replace(".", options.getDecimalPoint());
-        String retVal = s4.replaceAll("\\+", options.getSeparator());
+        retVal = s4.replaceAll("\\+", options.getSeparator());
+        }
         if ((!retVal.contains(".")) && (options.getPrecision() > 0)) {
             String acc = ".";
             for (int i = 0; i < options.getPrecision(); ++i) {

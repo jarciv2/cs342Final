@@ -1,4 +1,5 @@
 import java.text.DecimalFormat;
+import java.math.BigDecimal;
 public class FinalTester {
 
   public static boolean debugMode = true;
@@ -106,17 +107,34 @@ public class FinalTester {
         DecimalFormat df = new DecimalFormat(pattern);
         String s1 = df.format(number);
         String s2 = formatNumber(Double.parseDouble(s1));
+        if (s1.length() > 8 && !s1.contains(".")) {
+            s2 = new BigDecimal(s2).toPlainString();
+            String[] x = s2.split("");
+            for (int i = (s1.length() - 4); i > 0; i--) {
+                x[i] = x[i] + ",";
+                if ((i - 2) > 0 && (i - 1) > 0) {
+                    i = i - 2;
+                } else {
+                      i = 1;
+                }
+            }
+            s2 = x[0];
+            for (int i = 1; i < s1.length(); i++) {
+                s2 = s2 + x[i];
+            }
+        }
         String s3 = s2.replaceAll(",", "+");
+        String retVal = s2;
+        if (options.getSeparator() != null && options.getDecimalPoint() != null) {
         String s4 = s3.replace(".", options.getDecimalPoint());
-        String retVal = s4.replaceAll("\\+", options.getSeparator());
-        if ( (retVal.contains(".") == false) && (options.getPrecision() > 0) ) {
+        retVal = s4.replaceAll("\\+", options.getSeparator());
+        }
+        if ((!retVal.contains(".")) && (options.getPrecision() > 0) ) {
             String acc = ".";
             for (int i = 0; i < options.getPrecision(); ++i) {
                 acc = acc + "0";
             }
             retVal = retVal + acc;
-            // DecimalFormat df2 = new DecimalFormat("0");
-            // df2.
         }
         return retVal;
     }
@@ -134,8 +152,8 @@ public static void main(String[] args) {
 
  NumberFormatOptions nfo = new NumberFormatOptions(2);
  double l = 1234.789;
- double d = 1234789.9999;
- String output = formatNumber(d);
+ double d = 123456789;
+ //String output = formatNumber(d);
  System.out.println(formatNumber(1234.000)); 
  System.out.println(formatNumber(1234.003));
  System.out.println(formatNumber(l));

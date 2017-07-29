@@ -17,7 +17,6 @@ public class NumberFormatOptions {
      * @param prec  An int that specifies amount of decimal points
      * @param tSep  A String that denotes whether we use commas or periods as seperator
      * @param dPoint  A Sting that denotes what we use as our decimal point
-     * @return Simply constructs our options for formatting
      */
     public NumberFormatOptions(int prec, String tSep, String dPoint) {
         this.precision = prec;
