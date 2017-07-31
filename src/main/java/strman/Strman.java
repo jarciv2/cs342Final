@@ -459,6 +459,7 @@ public abstract class Strman {
      *
      * @param s A string representation of a number to be formatted and returned as a string
      * @return The formatted string
+     * @author Jake Arcivar, Frank Lubek
      */
     public static String formatPrefix(String s) {
         String retVal = s;
@@ -480,6 +481,7 @@ public abstract class Strman {
      *
      * @param number Our number we are formatting
      * @return String  Our number in string form with separators added
+     * @author Jake Arcivar, Frank Lubek
      */
     public static String formatNumber(double number) {
 
@@ -504,6 +506,7 @@ public abstract class Strman {
      * @param number Our double that we are formatting
      * @param options The options we will use to format our number from the NumberFormatOptions class
      * @return String Our thousands seperator being used
+     * @author Jake Arcivar, Frank Lubek
      */
     public static String formatNumber(double number, NumberFormatOptions options) {
 

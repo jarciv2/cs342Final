@@ -376,6 +376,7 @@ public class StrmanTests {
 
 
     @Test
+    //@Author Jake Arcivar Frank Lubek
     public void formatNumber_noParams1() throws Exception {
         double input = 1000;
         String correctOutput = "1,000";
@@ -384,6 +385,7 @@ public class StrmanTests {
 
 
     @Test
+    //@Author Jake Arcivar Frank Lubek
     public void formatNumber_noParams2() throws Exception {
         double input = 500000;
         String correctOutput = "500,000";
@@ -392,6 +394,7 @@ public class StrmanTests {
 
 
     @Test
+    //@Author Jake Arcivar Frank Lubek
     public void formatNumber_noParams3() throws Exception {
         double input = 1234567;
         String correctOutput = "1,234,567";
@@ -401,6 +404,7 @@ public class StrmanTests {
 
 
     @Test
+    //@Author Jake Arcivar Frank Lubek
     public void formatNumber_2spacesAfterDecimal1() throws Exception {
         double input = 1000;
         String correctOutput = "1,000.00";
@@ -409,6 +413,7 @@ public class StrmanTests {
 
 
     @Test
+    //@Author Jake Arcivar Frank Lubek
     public void formatNumber_2spacesAfterDecimal2() throws Exception {
         double input = 500000;
         String correctOutput = "500,000.00";
@@ -418,6 +423,7 @@ public class StrmanTests {
 
 
     @Test
+    //@Author Jake Arcivar Frank Lubek
     public void formatNumber_2spacesAfterDecimal3() throws Exception {
         double input = 123456789;
         String correctOutput = "123,456,789.00";
@@ -427,6 +433,7 @@ public class StrmanTests {
 
 
     @Test
+    //@Author Jake Arcivar Frank Lubek
     public void formatNumber_rounding1() throws Exception {
         double input = 1000.754;
         String correctOutput = "1.001";
@@ -435,6 +442,7 @@ public class StrmanTests {
 
 
     @Test
+    //@Author Jake Arcivar Frank Lubek
     public void formatNumber_rounding2() throws Exception {
         double input = 1000000.754;
         String correctOutput = "1.000.000,75";
@@ -443,6 +451,7 @@ public class StrmanTests {
 
 
     @Test
+    //@Author Jake Arcivar Frank Lubek
     public void formatNumber_rounding3() throws Exception {
         double input = 1234.56789;
         String correctOutput = "1.234,5679";
